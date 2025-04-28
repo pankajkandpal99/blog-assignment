@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      phoneNumber: "",
+      email: "",
       password: "",
     },
   });
@@ -78,24 +78,15 @@ const LoginForm: React.FC = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="phoneNumber"
+                name="email"
                 render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel className="text-sm font-medium">
-                      Phone Number
-                    </FormLabel>
+                  <FormItem>
+                    <FormLabel className="text-sm font-medium">Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter phone number"
+                        placeholder="Enter your email"
                         {...field}
                         className="text-sm"
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/\D/g, "");
-                          form.setValue("phoneNumber", value.slice(0, 10));
-                        }}
-                        value={field.value}
-                        type="tel"
-                        maxLength={10}
                       />
                     </FormControl>
                     <FormMessage className="text-xs" />
@@ -151,11 +142,7 @@ const LoginForm: React.FC = () => {
                 )}
               />
 
-              <Button
-                type="submit"
-                className="w-full mt-6 bg-primary hover:bg-green-400 cursor-pointer"
-                disabled={loading}
-              >
+              <Button type="submit" className="w-full mt-6" disabled={loading}>
                 {loading ? <Loader size="small" /> : "Log In"}
               </Button>
             </form>

@@ -17,23 +17,15 @@ const UserSchema = new Schema<IUser>(
       minlength: [8, "Password must be at least 8 characters"],
       select: false,
     },
-    phoneNumber: {
-      type: String,
-      required: true,
-      unique: true,
-      validate: {
-        validator: (v: string) => /^[0-9]{10}$/.test(v),
-        message: "Phone number must be 10 digits",
-      },
-    },
+
     role: {
       type: String,
       enum: Object.values(ROLE),
       default: ROLE.USER,
     },
-    username: {
+    name: {
       type: String,
-      minlength: [3, "Username must be at least 3 characters"],
+      minlength: [3, "Name must be at least 3 characters"],
     },
     avatar: String,
     lastLogin: Date,

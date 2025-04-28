@@ -13,7 +13,6 @@ import {
   DrawerPortal,
   DrawerTrigger,
 } from "../ui/drawer";
-import { CompanyLogo } from "../logo/CompanyLogo";
 import { Link } from "react-router-dom";
 
 interface MobileMenuProps {
@@ -61,17 +60,17 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ items }) => {
                   <div className="relative">
                     <div className="absolute -inset-1 bg-gradient-to-r from-[#6FFFB4] to-[#3694FF] rounded-full blur opacity-70" />
                     <div className="relative bg-[#0a101f] rounded-full p-1">
-                      <CompanyLogo
+                      {/* <CompanyLogo
                         type="image"
                         src="../../../../public/Final GHG Logo.png"
                         alt="GameHiGame logo"
                         size="md"
                         className="w-8 h-8"
-                      />
+                      /> */}
                     </div>
                   </div>
                   <span className="text-base font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#6FFFB4] to-[#3694FF]">
-                    GameHiGame
+                    BlogPage
                   </span>
                 </div>
                 <DrawerClose className="p-2 text-[#94a3b8] hover:text-white rounded-full hover:bg-[#121a2a] transition-colors">

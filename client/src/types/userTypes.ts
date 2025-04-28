@@ -17,11 +17,6 @@ export interface UserPreferences {
   [key: string]: any;
 }
 
-export interface GameProgress {
-  // Define game progress structure as per your application needs
-  [key: string]: any;
-}
-
 export interface UserStats {
   // Define user stats structure as per your application needs
   [key: string]: any;
@@ -44,7 +39,6 @@ export interface UserData {
   isVerified: boolean;
   provider?: AuthProvider;
   providerId?: string;
-  gameProgress?: GameProgress;
   preferences?: UserPreferences;
   sessions?: UserSession[];
   stats?: UserStats;

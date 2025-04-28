@@ -26,7 +26,10 @@ import {
   RegisterFormValues,
 } from "../../schema/authSchema";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { registerUser, resetRegistration } from "../../features/auth/auth.slice";
+import {
+  registerUser,
+  resetRegistration,
+} from "../../features/auth/auth.slice";
 import { Eye, EyeOff } from "lucide-react";
 
 const RegisterForm: React.FC = () => {
@@ -40,9 +43,8 @@ const RegisterForm: React.FC = () => {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
-      username: undefined,
-      phoneNumber: "",
-      email: undefined,
+      name: "",
+      email: "",
       password: "",
       confirmPassword: "",
     },
@@ -98,15 +100,13 @@ const RegisterForm: React.FC = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="username"
+                name="name"
                 render={({ field, fieldState }) => (
                   <FormItem>
-                    <FormLabel className="text-sm font-medium">
-                      Username
-                    </FormLabel>
+                    <FormLabel className="text-sm font-medium">Name</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your username"
+                        placeholder="Enter your name"
                         {...field}
                         className={`text-sm pr-10 ${
                           fieldState.error
@@ -129,9 +129,6 @@ const RegisterForm: React.FC = () => {
                       <FormLabel className="text-sm font-medium">
                         Email
                       </FormLabel>
-                      <span className="text-xs text-muted-foreground">
-                        (optional)
-                      </span>
                     </div>
                     <FormControl>
                       <Input
@@ -142,37 +139,6 @@ const RegisterForm: React.FC = () => {
                             ? "border-red-400 focus-visible:ring-red-400"
                             : ""
                         }`}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-xs" />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="phoneNumber"
-                render={({ field, fieldState }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel className="text-sm font-medium">
-                      Phone Number
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter phone number"
-                        {...field}
-                        className={`text-sm pr-10 ${
-                          fieldState.error
-                            ? "border-red-400 focus-visible:ring-red-400"
-                            : ""
-                        }`}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/\D/g, "");
-                          form.setValue("phoneNumber", value.slice(0, 10));
-                        }}
-                        value={field.value}
-                        type="tel"
-                        maxLength={10}
                       />
                     </FormControl>
                     <FormMessage className="text-xs" />

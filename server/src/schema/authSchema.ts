@@ -1,15 +1,12 @@
 import { z } from "zod";
 
-// const phoneRegex = /^\+[1-9]\d{1,14}$/;
-
 export const registerSchema = z
   .object({
-    username: z
+    name: z
       .string()
-      .min(3, "Username must be at least 3 characters")
-      .max(20, "Username cannot be more than 20 characters")
-      .optional(),
-    email: z.string().email("Invalid email address").optional(),
+      .min(3, "Name must be at least 3 characters")
+      .max(50, "Name cannot be more than 50 characters"),
+    email: z.string().email("Invalid email address"),
     password: z
       .string()
       .min(8, "Password must be at least 8 characters")
@@ -21,11 +18,6 @@ export const registerSchema = z
         "Password must contain at least one special character"
       ),
     confirmPassword: z.string(),
-    phoneNumber: z
-      .string()
-      .min(10, "Phone number must be exactly 10 digits")
-      .max(10, "Phone number must be exactly 10 digits")
-      .regex(/^[0-9]+$/, "Phone number must contain only numbers"),
   })
   .strict()
   .refine((data) => data.password === data.confirmPassword, {
@@ -35,29 +27,10 @@ export const registerSchema = z
 
 export const loginSchema = z
   .object({
-    email: z.string().email("Invalid email address").optional(),
-    phoneNumber: z
-      .string()
-      .min(10, "Phone number must be exactly 10 digits")
-      .max(10, "Phone number must be exactly 10 digits")
-      .regex(/^[0-9]+$/, "Phone number must contain only numbers")
-      .optional(),
-
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(1, "Password is required"),
   })
-  .strict()
-  .refine(
-    (data) => {
-      const loginMethodsProvided = [
-        data.email ? 1 : 0,
-        data.phoneNumber ? 1 : 0,
-      ].reduce((a, b) => a + b, 0);
+  .strict();
 
-      return loginMethodsProvided === 1;
-    },
-    {
-      message:
-        "Exactly one login method (email or phone number) must be provided",
-      path: ["phoneNumber"],
-    }
-  );
+export type RegisterFormValues = z.infer<typeof registerSchema>;
+export type LoginFormValues = z.infer<typeof loginSchema>;

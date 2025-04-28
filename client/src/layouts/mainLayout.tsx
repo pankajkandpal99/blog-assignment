@@ -18,7 +18,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       <main className="flex-1">
         <div
           className={`container mx-auto ${
-            fullWidth ? "" : "max-w-7xl px-4 md:px-6 lg:px-8 pb-12 mt-8"
+            fullWidth
+              ? "max-w-7xl px-4 md:px-6 lg:px-8 pb-12 mt-8"
+              : "max-w-7xl px-4 md:px-6 lg:px-8 pb-12 mt-8"
           } `}
         >
           {children || <Outlet />}

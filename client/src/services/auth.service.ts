@@ -16,11 +16,10 @@ export const AuthService = {
   async register(data: RegisterFormValues) {
     try {
       const payload = {
-        username: data.username,
+        name: data.name,
         email: data.email,
         password: data.password,
         confirmPassword: data.password,
-        phoneNumber: data.phoneNumber,
       };
 
       const response = await apiClient.post(
@@ -43,7 +42,7 @@ export const AuthService = {
   async login(data: LoginFormValues) {
     try {
       const payload = {
-        phoneNumber: data.phoneNumber,
+        email: data.email,
         password: data.password,
       };
 

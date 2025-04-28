@@ -16,31 +16,19 @@ export const AuthController = {
   register: async (context: RequestContext) => {
     try {
       const result = await context.withTransaction(async (session) => {
-        const { email, password, phoneNumber } = context.body;
+        const { name, email, password } = context.body;
 
-        const existingUser = await User.findOne({ phoneNumber }).session(
-          session
-        );
+        const existingUser = await User.findOne({ email }).session(session);
         if (existingUser) {
-          throw new ConflictError("Phone number already registered", {
-            field: "phoneNumber",
-            value: phoneNumber,
+          throw new ConflictError("email already registered", {
+            field: "email",
+            value: email,
           });
-        }
-
-        if (email) {
-          const existingEmail = await User.findOne({ email }).session(session);
-          if (existingEmail) {
-            throw new ConflictError("Email already registered", {
-              field: "email",
-              value: email,
-            });
-          }
         }
 
         const hashedPassword = await hashPassword(password);
         const user = new User({
-          phoneNumber,
+          name: name,
           password: hashedPassword,
           role: "USER",
           ...(email && { email }),
@@ -50,7 +38,7 @@ export const AuthController = {
 
         return {
           id: user._id.toString(),
-          phoneNumber: user.phoneNumber,
+          name: user.name,
           role: user.role,
           ...(user.email && { email: user.email }),
         };
@@ -65,20 +53,13 @@ export const AuthController = {
   login: async (context: RequestContext) => {
     try {
       const result = await context.withTransaction(async (session) => {
-        const { email, phoneNumber, password } = context.body;
+        const { email, password } = context.body;
 
-        if (email && phoneNumber) {
-          throw new AuthenticationError(
-            "Provide either email or phone number, not both"
-          );
+        if (!email || !password) {
+          throw new AuthenticationError("Email and password are required");
         }
 
-        const user = await User.findOne({
-          $or: [
-            ...(email ? [{ email: email.toLowerCase() }] : []),
-            ...(phoneNumber ? [{ phoneNumber }] : []),
-          ],
-        })
+        const user = await User.findOne({ email: email.toLowerCase() })
           .select("+password")
           .session(session);
 
@@ -92,18 +73,18 @@ export const AuthController = {
         }
 
         const token = generateToken(user._id.toString(), user.role as ROLE);
+
         context.res.cookie("token", token, {
-          httpOnly: false, // true only when server side token checking
-          secure: env.NODE_ENV === "production" ? true : false,
+          httpOnly: true, // more secure
+          secure: env.NODE_ENV === "production",
           sameSite: env.NODE_ENV === "production" ? "none" : "lax",
-          maxAge: 7 * 24 * 60 * 60 * 1000,
+          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
           domain:
             env.NODE_ENV === "production" ? env.COOKIE_DOMAIN : "localhost",
           path: "/",
         });
 
         const userObject = user.toObject();
-
         delete (userObject as { password?: string }).password;
         delete (userObject as { __v?: any }).__v;
 

@@ -5,9 +5,8 @@ import { ROLE } from "../../config/constants";
 export interface IUser extends Document {
   email?: string;
   password: string;
-  phoneNumber: string;
   role: ROLE;
-  username?: string;
+  name?: string;
   avatar?: string;
   lastLogin?: Date;
   lastActive?: Date;

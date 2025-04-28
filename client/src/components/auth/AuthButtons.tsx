@@ -115,7 +115,7 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({ isMobile = false }) => {
 
             <DropdownMenuSeparator />
 
-            {currentUser.role === "ADMIN" && (
+            {/* {currentUser.role === "ADMIN" && (
               <Link to="/admin-dashboard">
                 <DropdownMenuItem className="cursor-pointer text-blue-500 focus:text-blue-500 focus:bg-blue-500/10">
                   <ShieldCheck
@@ -126,7 +126,7 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({ isMobile = false }) => {
                   <span>Admin Dashboard</span>
                 </DropdownMenuItem>
               </Link>
-            )}
+            )} */}
 
             <DropdownMenuItem
               onClick={handleSignOut}
