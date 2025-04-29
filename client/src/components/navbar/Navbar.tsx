@@ -23,33 +23,43 @@ export const Navbar: React.FC<iAppNavbarProps> = ({ items }) => {
         <Link to="/" className="flex items-center gap-2">
           <motion.div whileHover={{ scale: 1.05 }} className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-200" />
-            <div className="relative bg-white dark:bg-gray-900 rounded-full p-1">
-              {/* Replace with your logo component */}
-              <div className="w-10 h-10 flex items-center justify-center">
-                <span className="text-xl font-bold">BP</span>
+            <div className="relative bg-white dark:bg-gray-900 rounded-full p-1.5 shadow-sm border border-gray-200 dark:border-gray-700 group-hover:shadow-md transition-all duration-300">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-blue-600">
+                  DI
+                </span>
               </div>
             </div>
           </motion.div>
-          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-blue-600">
-            BlogPage
+          <span className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-blue-600 tracking-tight group-hover:bg-[length:200%_100%] bg-[length:100%_100%] transition-[background-size] duration-500">
+            DevInsight
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-6">
           {filteredItems.map((item) => (
             <NavbarItem key={item.id} item={item} />
           ))}
         </div>
 
         <div className="flex items-center gap-4 lg:gap-6">
+          {isAdmin && (
+            <div className="hidden md:flex items-center gap-3">
+              <span className="text-sm text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded-md font-semibold uppercase tracking-wider">
+                ADMIN
+              </span>
+              <div className="w-[1px] h-6 bg-gray-300 dark:bg-gray-600"></div>
+            </div>
+          )}
+
           {/* Desktop Auth Buttons */}
-          <div className="hidden lg:flex">
+          <div className="hidden md:flex">
             <AuthButtons />
           </div>
 
           {/* Mobile Menu */}
-          <div className="lg:hidden">
+          <div className="md:hidden">
             <MobileMenu items={filteredItems} />
           </div>
         </div>

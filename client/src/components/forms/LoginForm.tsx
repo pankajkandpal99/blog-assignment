@@ -52,11 +52,6 @@ const LoginForm: React.FC = () => {
     }
   }, [authenticated, navigate, dispatch]);
 
-  // useEffect(() => {
-  //   const subscription = form.watch();
-  //   return () => subscription.unsubscribe();
-  // }, [form, error, dispatch]);
-
   return (
     <div className="flex items-center justify-center min-h-screen px-4 py-8 sm:px-6 md:px-8">
       <Card className="w-full max-w-md mx-auto shadow-lg">

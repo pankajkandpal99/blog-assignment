@@ -9,7 +9,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { ChevronDown, LogOut, LogIn, ShieldCheck } from "lucide-react";
+import { ChevronDown, LogOut, LogIn } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
@@ -29,10 +29,7 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({ isMobile = false }) => {
   const defaultAvatar =
     "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
   const userInitial =
-    currentUser?.username?.charAt(0) ||
-    currentUser?.email?.charAt(0) ||
-    currentUser?.phoneNumber?.charAt(0) ||
-    "G";
+    currentUser?.name?.charAt(0) || currentUser?.email?.charAt(0) || "G";
 
   const handleSignOut = async () => {
     try {
@@ -87,7 +84,7 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({ isMobile = false }) => {
               <Avatar>
                 <AvatarImage
                   src={currentUser.avatar || defaultAvatar}
-                  alt={currentUser.username || "User"}
+                  alt={currentUser.name || "User"}
                 />
                 <AvatarFallback className="bg-[#3694FF]/20 text-[#3694FF]">
                   {userInitial.toUpperCase()}
@@ -101,10 +98,10 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({ isMobile = false }) => {
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent className="w-56 mt-2" align="end">
+          <DropdownMenuContent className="w-56 mt-2 border-primary" align="end">
             <DropdownMenuLabel className="flex flex-col">
               <span className="text-sm font-medium text-foreground">
-                {currentUser.username || currentUser.phoneNumber}
+                {currentUser.name}
               </span>
               {currentUser.email && (
                 <span className="text-xs text-muted-foreground truncate">

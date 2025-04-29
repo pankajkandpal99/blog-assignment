@@ -30,9 +30,8 @@ export interface UserSession {
 export interface UserData {
   _id: string;
   email?: string;
-  phoneNumber: string;
   role: Role;
-  username?: string;
+  name?: string;
   avatar?: string;
   lastLogin?: Date;
   lastActive?: Date;

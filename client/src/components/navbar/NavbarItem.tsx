@@ -19,32 +19,60 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
   const isActive = location.pathname === item.href;
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className={cn("relative", isMobile ? "w-full" : "inline-block")}
+    <motion.li
+      className={cn("relative list-none", isMobile ? "w-full" : "inline-flex")}
+      whileHover={{
+        scale: 1.05,
+        transition: { type: "spring", stiffness: 400, damping: 15 },
+      }}
+      whileTap={{
+        scale: 0.95,
+        transition: { duration: 0.1 },
+      }}
     >
       <Link
         to={item.href}
         onClick={onClick}
         className={cn(
-          "block px-3 py-2 text-sm transition-colors",
-          "hover:bg-[#121a2a]/50 rounded-lg",
+          "group flex items-center w-full px-4 py-2.5 text-sm font-medium transition-all duration-200",
+          "rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
           isActive
-            ? "text-[#6FFFB4] font-semibold"
-            : "text-[#94a3b8] hover:text-white",
-          isMobile ? "text-lg py-3" : ""
+            ? "text-primary dark:text-primary-foreground font-semibold"
+            : "text-foreground/90 hover:text-primary dark:text-foreground/70 dark:hover:text-primary-foreground",
+          isMobile ? "text-base py-3 px-5" : ""
         )}
         aria-current={isActive ? "page" : undefined}
       >
-        {item.label}
-        {isActive && (
-          <motion.div
-            className="absolute bottom-0 left-0 w-full h-0.5 bg-[#6FFFB4]"
-            layoutId="underline"
+        <span className="relative z-10">
+          {item.label}
+          {isActive && (
+            <motion.span
+              className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"
+              layoutId="underline"
+              transition={{
+                type: "spring",
+                stiffness: 500,
+                damping: 30,
+              }}
+            />
+          )}
+        </span>
+
+        {!isActive && (
+          <motion.span
+            className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-lg"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+              transition: { duration: 0.3 },
+            }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            layoutId="hover-bg"
           />
         )}
       </Link>
-    </motion.div>
+    </motion.li>
   );
 };
