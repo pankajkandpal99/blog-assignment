@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/navbar/Navbar";
 import { NAVBAR_ITEMS } from "../config/constants";
+import FooterSection from "../components/general/FooterSection";
 
 interface MainLayoutProps {
   children?: React.ReactNode;
@@ -26,6 +27,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
           {children || <Outlet />}
         </div>
       </main>
+      <FooterSection />
     </div>
   );
 };

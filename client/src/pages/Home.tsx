@@ -4,7 +4,6 @@ import { Blog } from "../types";
 import { HeroSection } from "../components/general/HeroSection";
 import { BlogSection } from "../components/blogs/BlogSection";
 import NewsLetterSection from "../components/blogs/NewsLetterSection";
-import FooterSection from "../components/general/FooterSection";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -56,7 +55,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="py-16 px-4 sm:px-6 lg:px-8">
+      <main className="py-8 md:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-16">
           <HeroSection
             searchQuery={searchQuery}
@@ -80,8 +79,6 @@ export default function Home() {
           <NewsLetterSection />
         </div>
       </main>
-
-      <FooterSection />
     </div>
   );
 }
