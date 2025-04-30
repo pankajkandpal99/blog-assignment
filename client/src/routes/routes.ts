@@ -1,11 +1,10 @@
 import React, { lazy } from "react";
 
 const Home = lazy(() => import("../pages/Home"));
-const About = lazy(() => import("../pages/About"));
+const Blogs = lazy(() => import("../pages/Blogs"));
+const BlogDetails = lazy(() => import("../pages/BlogDetails"));
 const AdminDashboard = lazy(() => import("../pages/AdminDashboard"));
 
-const Support = lazy(() => import("../pages/Support"));
-const Services = lazy(() => import("../pages/Services"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
@@ -18,10 +17,6 @@ interface RouteConfig {
 
 export const publicRoutes: RouteConfig[] = [
   { path: "/", element: Home, fullWidth: true },
-  { path: "/about", element: About },
-
-  { path: "/support", element: Support },
-  { path: "/services", element: Services },
 ];
 
 export const authRoutes: RouteConfig[] = [
@@ -30,6 +25,8 @@ export const authRoutes: RouteConfig[] = [
 ];
 
 export const protectedRoutes: RouteConfig[] = [
+  { path: "/articles", element: Blogs, fullWidth: true },
+  { path: "/article/:id", element: BlogDetails },
   { path: "/admin-dashboard", element: AdminDashboard },
 ];
 

@@ -43,8 +43,6 @@ export const BlogForm = ({ defaultValues, onSubmit }: BlogFormProps) => {
     },
   });
 
-  console.log("default values : ", defaultValues);
-
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();

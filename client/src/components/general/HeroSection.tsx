@@ -3,7 +3,13 @@ import { SearchFilterProps } from "../../types";
 import { AnimatedContainer } from "../blogs/AnimatedContainer";
 import SearchFilter from "../blogs/SearchFilter";
 
-export const HeroSection = (props: SearchFilterProps) => {
+interface HeroSectionProps extends SearchFilterProps {
+  simplified?: boolean;
+}
+
+export const HeroSection = (props: HeroSectionProps) => {
+  const { simplified = false, ...searchFilterProps } = props;
+
   return (
     <div className="text-center space-y-8 relative">
       <div className="absolute top-0 left-0 right-0 -z-10 overflow-hidden opacity-20">
@@ -33,9 +39,11 @@ export const HeroSection = (props: SearchFilterProps) => {
         </p>
       </motion.div>
 
-      <AnimatedContainer delay={0.2}>
-        <SearchFilter {...props} />
-      </AnimatedContainer>
+      {!simplified && (
+        <AnimatedContainer delay={0.2}>
+          <SearchFilter {...searchFilterProps} />
+        </AnimatedContainer>
+      )}
     </div>
   );
 };

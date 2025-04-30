@@ -5,32 +5,36 @@ import { verifyAuth } from "./features/auth/auth.slice";
 import { UserService } from "./services/user.service";
 import { setUser } from "./features/user/user.slice";
 import { Loader } from "./components/general/Loader";
+import { fetchBlogs } from "./features/blog/blog.slice";
 
 function App() {
   const dispatch = useAppDispatch();
   const { initialized, authenticated } = useAppSelector((state) => state.auth);
   const { currentUser } = useAppSelector((state) => state.user);
+  const { loading: blogsLoading } = useAppSelector((state) => state.blog);
 
   useEffect(() => {
-    const initializeAuth = async () => {
+    const initializeApp = async () => {
+      dispatch(fetchBlogs());
       const authResult = await dispatch(verifyAuth());
 
       if (authResult.meta.requestStatus === "fulfilled") {
         const payload = authResult.payload as { authenticated: boolean };
+
         if (payload.authenticated && !currentUser) {
           try {
-            const userData = await UserService.getCurrentUser();
-            dispatch(setUser(userData.data));
+            const userResponse = await UserService.getCurrentUser();
+            dispatch(setUser(userResponse.data));
           } catch (error) {
-            console.error("Failed to fetch user data:", error);
+            console.error("Failed to fetch current user:", error);
           }
         }
       }
     };
 
-    initializeAuth();
+    initializeApp();
 
-    // Periodic checks if this is necessary...
+    // Periodic checks for auth (optional)
     const interval = setInterval(() => {
       dispatch(verifyAuth());
     }, 10 * 60 * 1000);
@@ -38,7 +42,7 @@ function App() {
     return () => clearInterval(interval);
   }, [dispatch, authenticated, currentUser]);
 
-  if (!initialized) {
+  if (!initialized || (authenticated && blogsLoading && !currentUser)) {
     return <Loader size="large" />;
   }
 

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Blog } from "../../types";
-import { blogs } from "../../constants/blogs";
 import { BlogService } from "../../services/blog.service";
 import { BlogFormValues } from "../../schema/blogSchema";
 
@@ -12,7 +11,7 @@ interface BlogState {
 }
 
 const initialState: BlogState = {
-  blogs: [...blogs],
+  blogs: [],
   loading: false,
   error: null,
   currentBlog: null,
@@ -29,6 +28,29 @@ export const fetchBlogs = createAsyncThunk<Blog[]>(
         return rejectWithValue(error.message);
       }
       return rejectWithValue("Failed to fetch blogs");
+    }
+  }
+);
+
+export const fetchBlogById = createAsyncThunk<Blog, string>(
+  "blog/fetchById",
+  async (blogId, { getState, rejectWithValue }) => {
+    try {
+      const state = getState() as { blog: BlogState };
+      const existingBlog = state.blog.blogs.find((blog) => blog._id === blogId);
+
+      if (existingBlog) {
+        return existingBlog;
+      }
+
+      // If not found in state, fetch from API
+      const response = await BlogService.getBlogById(blogId);
+      return response.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue("Failed to fetch blog");
     }
   }
 );
@@ -114,6 +136,29 @@ const blogSlice = createSlice({
       .addCase(fetchBlogs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+
+      .addCase(fetchBlogById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchBlogById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentBlog = action.payload;
+
+        const blogIndex = state.blogs.findIndex(
+          (blog) => blog._id === action.payload._id
+        );
+        if (blogIndex !== -1) {
+          state.blogs[blogIndex] = action.payload;
+        } else {
+          state.blogs.push(action.payload);
+        }
+      })
+      .addCase(fetchBlogById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+        state.currentBlog = null;
       })
 
       // Create Blog

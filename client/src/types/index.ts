@@ -14,7 +14,7 @@ export type Blog = {
 
 export type BlogCardProps = {
   blog: Blog;
-  onBookmark: (id: number) => void;
+  onBookmark: (id: string) => void;
   isBookmarked: boolean;
 };
 

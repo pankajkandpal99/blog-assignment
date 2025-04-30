@@ -1,26 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FilePlus, Search } from "lucide-react";
 import { Blog } from "../types";
 import { BlogFormValues } from "../schema/blogSchema";
 import { Button } from "../components/ui/button";
 import { BlogForm } from "../components/forms/BlogForm";
 import { BlogsTable } from "../components/blogs/BlogsTable";
-// import { blogs } from "../constants/blogs";
 import { Input } from "../components/ui/input";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import {
   createBlog,
   deleteBlog,
-  fetchBlogs,
   updateBlog,
 } from "../features/blog/blog.slice";
 import { Loader } from "../components/general/Loader";
+import { toast } from "sonner";
 
 export default function AdminDashboard() {
   const dispatch = useAppDispatch();
-  // const [blogsData, setBlogsData] = useState<Blog[]>(blogs);
-  const { blogs, error, loading } = useAppSelector((state) => state.blog);
+  const { blogs, loading } = useAppSelector((state) => state.blog);
   const [isCreating, setIsCreating] = useState(false);
   const [editingBlog, setEditingBlog] = useState<Blog | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,28 +46,31 @@ export default function AdminDashboard() {
     dispatch(deleteBlog(id));
   };
 
-  const handleSubmit = (values: BlogFormValues) => {
-    if (editingBlog) {
-      if (values._id) {
-        dispatch(updateBlog(values as Blog));
+  const handleSubmit = async (values: BlogFormValues) => {
+    try {
+      if (editingBlog) {
+        if (values._id) {
+          await dispatch(updateBlog(values as Blog)).unwrap();
+          toast.success("Blog updated successfully");
+        } else {
+          console.error("Blog ID is missing for update.");
+        }
       } else {
-        console.error("Blog ID is missing for update.");
+        await dispatch(createBlog(values)).unwrap();
+        toast.success("Blog created successfully");
       }
-    } else {
-      dispatch(createBlog(values));
+      setIsCreating(false);
+      setEditingBlog(null);
+    } catch (error) {
+      toast.error("Failed to create or update blog. Please try again.");
+      console.error("Error creating/updating blog:", error);
     }
-    setIsCreating(false);
-    setEditingBlog(null);
   };
 
   const handleCancel = () => {
     setIsCreating(false);
     setEditingBlog(null);
   };
-
-  useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
 
   if (loading && blogs.length === 0) {
     return (

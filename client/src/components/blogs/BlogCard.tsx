@@ -18,8 +18,10 @@ import {
 } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 const BlogCard = ({ blog, onBookmark, isBookmarked }: BlogCardProps) => {
+  const navigate = useNavigate();
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -108,7 +110,11 @@ const BlogCard = ({ blog, onBookmark, isBookmarked }: BlogCardProps) => {
               />
               {isBookmarked ? "Saved" : "Save"}
             </Button>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate(`/article/${blog._id}`)}
+            >
               <ArrowRight className="h-4 w-4" />
               <span className="sr-only">Read more</span>
             </Button>

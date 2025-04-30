@@ -2,11 +2,12 @@
 import { API_ENDPOINTS } from "../api/apiConfig";
 import { BlogFormValues } from "../schema/blogSchema";
 import axiosInstance from "../utils/axiosConfig";
+import { apiClient } from "./auth.service";
 
 export const BlogService = {
   async getAllBlogs() {
     try {
-      const response = await axiosInstance.get(
+      const response = await apiClient.get(
         API_ENDPOINTS.ADMIN.GET_ALL_BLOGS
       );
 
@@ -22,7 +23,7 @@ export const BlogService = {
 
   async getBlogById(id: string) {
     try {
-      const response = await axiosInstance.get(
+      const response = await apiClient.get(
         `${API_ENDPOINTS.ADMIN.GET_BLOG_BY_ID}/${id}`
       );
       return response.data;

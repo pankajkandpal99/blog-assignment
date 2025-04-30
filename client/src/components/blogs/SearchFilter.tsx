@@ -93,16 +93,17 @@ const SearchFilter = ({
           >
             All Topics
           </Button>
-          {allCategories.map((category) => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              className="rounded-full px-4 py-1 text-sm whitespace-nowrap transition-colors"
-              onClick={() => setSelectedCategory(category)}
-            >
-              {category}
-            </Button>
-          ))}
+          {allCategories.length > 0 &&
+            allCategories.map((category) => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? "default" : "outline"}
+                className="rounded-full px-4 py-1 text-sm whitespace-nowrap transition-colors"
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </Button>
+            ))}
         </div>
       </div>
     </div>
