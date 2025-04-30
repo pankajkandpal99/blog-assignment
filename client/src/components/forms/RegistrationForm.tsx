@@ -35,7 +35,9 @@ import { Eye, EyeOff } from "lucide-react";
 const RegisterForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { loading, error, registered } = useAppSelector((state) => state.auth);
+  const { loading, error, registered, authenticated } = useAppSelector(
+    (state) => state.auth
+  );
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -77,6 +79,12 @@ const RegisterForm: React.FC = () => {
     });
     return () => subscription.unsubscribe();
   }, [form, error, dispatch]);
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [authenticated, navigate, dispatch]);
 
   return (
     <div className="flex items-center justify-center p-4 sm:px-6 md:px-8">
