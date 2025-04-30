@@ -2,7 +2,7 @@ import { Blog } from "../types";
 
 export const blogs: Blog[] = [
   {
-    id: 1,
+    _id: 1,
     title: "Mastering React in 2025",
     content:
       "Learn about the latest trends and techniques to become a React expert. This comprehensive guide covers hooks, state management, performance optimization, and much more to elevate your React skills.",
@@ -16,7 +16,7 @@ export const blogs: Blog[] = [
     bookmarks: 89,
   },
   {
-    id: 2,
+    _id: 2,
     title: "Understanding RBAC for Web Apps",
     content:
       "Role-Based Access Control is crucial for securing modern web applications. Discover how to implement robust authentication systems that protect user data while providing a seamless experience.",
@@ -30,7 +30,7 @@ export const blogs: Blog[] = [
     bookmarks: 124,
   },
   {
-    id: 3,
+    _id: 3,
     title: "Scaling Node.js Applications",
     content:
       "Strategies for scaling your Node.js apps to handle millions of users. We'll explore clustering, load balancing, caching strategies, and database optimization techniques for high-traffic applications.",
@@ -44,7 +44,7 @@ export const blogs: Blog[] = [
     bookmarks: 176,
   },
   {
-    id: 4,
+    _id: 4,
     title: "Top 10 VSCode Extensions in 2025",
     content:
       "Boost your productivity with these must-have extensions for modern web development. From AI-powered code completion to advanced debugging tools, these extensions will transform your workflow.",
@@ -58,7 +58,7 @@ export const blogs: Blog[] = [
     bookmarks: 98,
   },
   {
-    id: 5,
+    _id: 5,
     title: "What's New in ECMAScript 2025",
     content:
       "A deep dive into the new features of JavaScript that will reshape how we write code. Explore the latest syntax improvements, built-in functions, and performance enhancements.",
@@ -72,7 +72,7 @@ export const blogs: Blog[] = [
     bookmarks: 143,
   },
   {
-    id: 6,
+    _id: 6,
     title: "Introduction to MongoDB Atlas",
     content:
       "Deploy and manage your databases easily with MongoDB Atlas. Learn how cloud database services can simplify your infrastructure while providing enterprise-grade reliability and security.",
@@ -86,7 +86,7 @@ export const blogs: Blog[] = [
     bookmarks: 87,
   },
   {
-    id: 7,
+    _id: 7,
     title: "Why TypeScript is a Game Changer",
     content:
       "Understand why companies are moving towards TypeScript heavily. Discover how static typing can prevent runtime errors, improve code quality, and enhance team collaboration on large projects.",
@@ -100,7 +100,7 @@ export const blogs: Blog[] = [
     bookmarks: 112,
   },
   {
-    id: 8,
+    _id: 8,
     title: "A Guide to Serverless Architectures",
     content:
       "Serverless is the future, and here's how you can adapt. Learn about FaaS providers, event-driven architectures, and how to refactor existing applications to leverage serverless benefits.",
@@ -114,7 +114,7 @@ export const blogs: Blog[] = [
     bookmarks: 156,
   },
   {
-    id: 9,
+    _id: 9,
     title: "Monorepos: Should You Use Them?",
     content:
       "Pros and cons of Monorepo strategies for large applications. We'll examine real-world case studies, tooling options, and best practices for organizing code in growing organizations.",
@@ -128,7 +128,7 @@ export const blogs: Blog[] = [
     bookmarks: 74,
   },
   {
-    id: 10,
+    _id: 10,
     title: "Understanding OAuth 2.0 and OpenID",
     content:
       "Secure your apps properly with OAuth and OpenID best practices. This comprehensive guide covers implementation strategies, common vulnerabilities, and the latest security recommendations.",
@@ -142,7 +142,7 @@ export const blogs: Blog[] = [
     bookmarks: 118,
   },
   {
-    id: 11,
+    _id: 11,
     title: "How AI is Changing Software Development",
     content:
       "AI tools like GitHub Copilot are redefining developer productivity. Explore how machine learning is transforming code completion, bug detection, and even architectural decision-making.",
@@ -156,7 +156,7 @@ export const blogs: Blog[] = [
     bookmarks: 187,
   },
   {
-    id: 12,
+    _id: 12,
     title: "Master TailwindCSS in 2025",
     content:
       "Learn how to build fast, responsive UIs using TailwindCSS. This guide covers advanced utilities, component patterns, dark mode strategies, and custom extension techniques.",

@@ -82,10 +82,10 @@ export const BlogSection = ({
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {filteredBlogs.map((blog) => (
                 <BlogCard
-                  key={blog.id}
+                  key={blog._id}
                   blog={blog}
                   onBookmark={handleBookmark}
-                  isBookmarked={bookmarkedPosts.includes(blog.id)}
+                  isBookmarked={bookmarkedPosts.includes(blog._id)}
                 />
               ))}
             </div>

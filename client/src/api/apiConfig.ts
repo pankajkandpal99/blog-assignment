@@ -12,15 +12,11 @@ const API_ENDPOINTS = {
     UPDATE_PROFILE: `${API_BASE_URL}/api/v1/users/update`,
   },
   ADMIN: {
-    HERO_SECTION: `${API_BASE_URL}/api/v1/admin/home/hero-section`,
-    CATEGORY_GAMES: `${API_BASE_URL}/api/v1/admin/home/category-game-section`,
-    UPLOAD_IMAGE: `${API_BASE_URL}/api/v1/upload-image`,
-    GAME_SECTION: `${API_BASE_URL}/api/v1/admin/game`,
-    GAME_LIST: `${API_BASE_URL}/api/v1/admin/games`,
-  },
-  GAME: {
-    LIST: `${API_BASE_URL}/api/v1/games/list`,
-    DETAILS: (gameId: string) => `${API_BASE_URL}/api/v1/games/${gameId}`,
+    CREATE_BLOG: `${API_BASE_URL}/api/v1/admin/blogs/create`,
+    GET_ALL_BLOGS: `${API_BASE_URL}/api/v1/admin/blogs/get-all`,
+    GET_BLOG_BY_ID: `${API_BASE_URL}/api/v1/admin/blogs/get-one`,
+    UPDATE_BLOG: `${API_BASE_URL}/api/v1/admin/blogs/update`,
+    DELETE_BLOG: `${API_BASE_URL}/api/v1/admin/blogs/delete`,
   },
 };
 

@@ -100,7 +100,7 @@ const BlogCard = ({ blog, onBookmark, isBookmarked }: BlogCardProps) => {
               variant={isBookmarked ? "default" : "outline"}
               size="sm"
               className={isBookmarked ? "text-primary-foreground" : ""}
-              onClick={() => onBookmark(blog.id)}
+              onClick={() => onBookmark(blog._id)}
             >
               <Bookmark
                 className="h-4 w-4 mr-1"

@@ -36,7 +36,7 @@ export default function Home() {
       const matchesTab =
         activeTab === "all" ||
         (activeTab === "featured" && blog.featured) ||
-        (activeTab === "bookmarked" && bookmarkedPosts.includes(blog.id));
+        (activeTab === "bookmarked" && bookmarkedPosts.includes(blog._id));
 
       return matchesSearch && matchesCategory && matchesTab;
     });
