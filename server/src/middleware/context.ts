@@ -23,22 +23,6 @@ export class RequestContext {
   ) {
     this._params = { ...(req.params || {}) };
 
-    // Extract ID from URL if params is empty but URL contains segments
-    // if (
-    //   Object.keys(this._params).length === 0 &&
-    //   req.originalUrl.includes("/")
-    // ) {
-    //   const pathSegments = req.originalUrl.split("/").filter(Boolean);
-    //   const lastSegment = pathSegments[pathSegments.length - 1];
-
-    //   // Check if the last segment looks like a MongoDB ID
-    //   if (/^[a-f0-9]{24}$/i.test(lastSegment)) {
-    //     this._params.id = lastSegment;
-    //     // Also update req.params so other middleware can access it
-    //     req.params.id = lastSegment;
-    //   }
-    // }
-
     this.body = req.body || {};
     this.user = req.user as { id: string; email: string; role: ROLE };
     this.files = (req as any).files;
@@ -51,16 +35,12 @@ export class RequestContext {
     );
   }
 
-  // Getter for params to ensure we always return the latest
   get params(): Record<string, any> {
-    // Combine stored params with any new req.params that might have been added
     return { ...this._params, ...(this.req.params || {}) };
   }
 
-  // Setter in case we need to update params explicitly
   set params(value: Record<string, any>) {
     this._params = value;
-    // Also update req.params to keep them in sync
     Object.assign(this.req.params, value);
   }
 
@@ -110,10 +90,8 @@ export class RequestContext {
 
 export const contextMiddleware = (db: mongoose.Connection): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    // Ensure req.params exists
     req.params = req.params || {};
 
-    // Create context with enhanced parameter extraction
     const context = new RequestContext(db, req, res);
     (req as any).context = context;
 

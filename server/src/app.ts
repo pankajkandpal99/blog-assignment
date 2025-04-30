@@ -35,7 +35,6 @@ export const createApp = async () => {
   // Routes
   app.use("/api/v1", baseRouter);
 
-  // Add this at the end of your createApp function
   app.use(errorHandler as unknown as express.ErrorRequestHandler);
   return app;
 };
